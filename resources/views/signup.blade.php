@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ url('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
@@ -29,11 +29,7 @@
                             <input type="password" name="password" id="password" class="form-control" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password_confirmation">Confirm Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control" required>
-                        </div>
+
 
                         <button type="submit" class="btn btn-primary">Signup</button>
                     </form>

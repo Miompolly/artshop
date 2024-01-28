@@ -41,11 +41,11 @@ class stripeController extends Controller
             'cancel_url' => route('checkout'),
         ]);
 
-        // Save order data in the database
+
         Order::create([
             'product_name' => $productname,
             'total_amount' => $total,
-            // Add more fields as needed
+
         ]);
 
         return redirect()->away($session->url);
@@ -53,10 +53,10 @@ class stripeController extends Controller
 
     public function success()
     {
-        // Fetch the order data from the database based on your logic
+
         $order = Order::latest()->first();
 
-        // Render the success page with the order details
+
         return view('success', ['order' => $order]);
     }
 }

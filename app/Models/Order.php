@@ -11,6 +11,6 @@ class Order extends Model
     protected $fillable = [
         'product_name',
         'total_amount',
-        
+
     ];
 }

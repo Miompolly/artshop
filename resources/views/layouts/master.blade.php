@@ -29,16 +29,38 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/cart">Cart</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item " style="background-color: rgb(0, 132, 255); border-radius:8px;color:white;">
-                        <a class="nav-link " style="color:white;" href="/signup">Signup</a>
+
+                    <li class="nav-item" style="background-color: rgb(0, 132, 255); border-radius:8px;color:white;">
+
+                        @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">upload</a>
+                        </li>
+                        <li class="nav-item py-2">
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <x-responsive-nav-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-responsive-nav-link>
+                            </form>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:white;" href="/register">Signup</a>
+                        </li>
+
+                    @endauth
                     </li>
                 </ul>
             </div>
         </div>
-
     </nav>
 
     <div class="container">
