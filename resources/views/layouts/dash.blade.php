@@ -25,18 +25,18 @@
 
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="">
+                            <a class="nav-link active" href="/dashboard">
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
+                            <a class="nav-link" href="/orderData">
                                 Orders
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
-                                Add Product
+                            <a class="nav-link" href="/readData">
+                                All Products
                             </a>
                         </li>
 

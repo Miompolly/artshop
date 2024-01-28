@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Photos; // Add this line
+use App\Models\Order; // Add this line
+use App\Models\Photos;   // Add this line
 use App\Models\Products;   // Add this line
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -37,6 +38,26 @@ class ProductsController extends Controller
         // dd($items);
 
         return view('welcome', compact('items'));
+    }
+
+    public function readData()
+    {
+        // $items=Products::all();
+        $items = Products::with('photo')->get();
+
+        // dd($items);
+
+        return view('readData', compact('items'));
+    }
+
+    public function orderData()
+    {
+        $orders = Order::all();
+        // $items = Order::with('photo')->get();
+
+        // dd($items);
+
+        return view('orderData', compact('orders'));
     }
 
     public function edit($id)

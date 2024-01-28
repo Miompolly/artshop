@@ -14,8 +14,9 @@
 
                         {{-- <img src="{{ URL::asset($item->photo->path) }}" class="w-8 h-8 rounded-full"> --}}
 
-                        <img class="card-img-top" style="width:100%;height: 200px;" src="{{ URL::asset($item->photo->path) }}"
+                        <img class="card-img-top" style="width:100%;height: 200px;" src="{{ optional($item->photo)->path }}"
                             alt="Hot Mansion">
+
                         <div class="card-body">
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,10 +39,9 @@ Route::get('/cart', function () {
     return view('cart');
 });
 
-
-
-
 Route::post('save-products', [ProductsController::class, 'save']);
+Route::get('readData', [ProductsController::class, 'readData']);
+Route::get('orderData', [ProductsController::class, 'orderData']);
 Route::get('/', [ProductsController::class, 'read']);
 Route::get('edit/{id}', [ProductsController::class, 'edit']);
 Route::put('update', [ProductsController::class, 'update']);

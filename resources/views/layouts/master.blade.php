@@ -34,7 +34,7 @@
 
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">upload</a>
+                            <a class="nav-link" href="/">View</a>
                         </li>
                         <li class="nav-item py-2">
 
@@ -53,7 +53,7 @@
                             <a class="nav-link" href="/login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="color:white;" href="/register">Signup</a>
+                            <a class="nav-link" href="/register">Signup</a>
                         </li>
 
                     @endauth
