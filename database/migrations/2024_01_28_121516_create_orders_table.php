@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('product_name');
             $table->decimal('total_amount', 10, 2);
-            $table->string('status')->default('pending');
+            $table->string('user_email');
+            $table->enum('status', ['pending', 'approved', 'completed'])->default('pending');
             $table->timestamps();
         });
     }

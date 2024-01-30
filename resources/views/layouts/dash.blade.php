@@ -95,5 +95,11 @@
 
 
 </body>
+<script>
+    function edit(id) {
+        console.log('connected');
+        location.href = "edit/" + id;
+    }
+</script>
 
 </html>

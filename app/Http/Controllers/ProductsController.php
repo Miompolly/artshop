@@ -62,33 +62,18 @@ class ProductsController extends Controller
 
     public function edit($id)
     {
-        $item = Products::where('id', $id)->first();
+        $order = Order::where('id', $id)->first();
 
-        return view('editView', compact('item'));
+        return view('editView', compact('order'));
     }
 
-    public function update(ProductsRequest $request)
+    public function update(Request $request)
     {
-        $items = Products::where('id', $request->id)->first();
-        $items->name = $request->name;
-        $items->price = $request->price;
-        $items->quantity = $request->quantity;
-        $items->update();
+        $orders = Order::where('id', $request->id)->first();
+        $orders->status = $request->status;
+        $orders->update();
 
-        if ($request->has('image')) {
-            $photo = Photos::where('product_id', $items->id)->first();
-            File::delete($photo->path);
-
-            $imageName = $request->image->getClientOriginalName();
-            $request->image->move(public_path('images'), $imageName);
-
-            $photo->path = 'images/'.$imageName;
-            $photo->product_id = $items->id;
-            $photo->save();
-
-        }
-
-        return back()->with('message', 'Update successfully!');
+        return back()->with('message', 'Status Updated successfully!');
     }
 
     public function delete(Request $request)

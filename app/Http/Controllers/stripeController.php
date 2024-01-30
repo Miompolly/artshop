@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class stripeController extends Controller
 {
@@ -15,10 +15,12 @@ class stripeController extends Controller
 
     public function session(Request $request)
     {
+        $user = Auth::user();
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
         $productname = $request->get('productname');
         $totalprice = $request->get('total');
+
         $two0 = '00';
         $total = "$totalprice$two0";
 
@@ -34,18 +36,18 @@ class stripeController extends Controller
                     ],
                     'quantity' => 1,
                 ],
-
             ],
             'mode' => 'payment',
             'success_url' => route('success'),
             'cancel_url' => route('checkout'),
         ]);
 
-
         Order::create([
+            'user_id' => $user->id,
             'product_name' => $productname,
+            'user_email' => $user->email,
             'total_amount' => $total,
-
+            'status' => 'pending',
         ]);
 
         return redirect()->away($session->url);
@@ -55,7 +57,6 @@ class stripeController extends Controller
     {
 
         $order = Order::latest()->first();
-
 
         return view('success', ['order' => $order]);
     }
