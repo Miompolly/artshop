@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order; // Add this line
-use App\Models\Photos;   // Add this line
-use App\Models\Products;   // Add this line
+// Add this line
+use App\Models\EmailLog;  // Add this line
+use App\Models\Order;   // Add this line
+use App\Models\Photos;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -71,7 +73,16 @@ class ProductsController extends Controller
     {
         $orders = Order::where('id', $request->id)->first();
         $orders->status = $request->status;
+        $oldStatus = $orders->status;
         $orders->update();
+        $subject = 'Order Status Update';
+        $body = "Your order with ID {$orders->id} has been updated to {$request->status}.";
+
+        EmailLog::create([
+            'recipient_email' => $orders->user_email,
+            'subject' => $subject,
+            'body' => $body,
+        ]);
 
         return back()->with('message', 'Status Updated successfully!');
     }

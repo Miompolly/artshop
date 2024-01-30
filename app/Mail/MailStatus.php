@@ -3,54 +3,34 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class MailStatus extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject,$body;
+    public $subject;
+
+    public $body;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($subject,$body)
+    public function __construct($subject, $body)
     {
-        $this->subject->$subject;
-        $this->body->$body;
+        $this->subject = $subject;
+        $this->body = $body;
     }
 
     /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: subject->$subject,
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'editView',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
+     * Build the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return $this
      */
-    public function attachments(): array
+    public function build(): MailStatus
     {
-        return [];
+        return $this->subject($this->subject)
+            ->view('mail-status');
     }
 }
