@@ -19,10 +19,8 @@ class stripeController extends Controller
         \Stripe\Stripe::setApiKey(config('stripe.sk'));
 
         $productname = $request->get('productname');
-        $totalprice = $request->get('total');
 
-        $two0 = '00';
-        $total = "$totalprice$two0";
+        $total = $request->get('total');
 
         $session = \Stripe\Checkout\Session::create([
             'line_items' => [
