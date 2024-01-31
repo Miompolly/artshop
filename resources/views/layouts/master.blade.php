@@ -34,7 +34,7 @@
 
                         @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="/">View</a>
+                            <a class="nav-link" href="/viewTra">View</a>
                         </li>
                         <li class="nav-item py-2">
 

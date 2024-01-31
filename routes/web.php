@@ -30,13 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', 'App\Http\Controllers\stripeController@checkout')->name('checkout');
     Route::post('/session', 'App\Http\Controllers\stripeController@session')->name('session');
     Route::get('/success', 'App\Http\Controllers\stripeController@success')->name('success');
-    Route::post('save-products', [ProductsController::class, 'save']);
-    Route::get('readData', [ProductsController::class, 'readData']);
-    Route::get('orderData', [ProductsController::class, 'orderData']);
-    Route::get('/', [ProductsController::class, 'read']);
-    Route::get('edit/{id}', [ProductsController::class, 'edit']);
-    Route::put('update', [ProductsController::class, 'update']);
-    Route::delete('delete', [ProductsController::class, 'delete']);
 
 });
 
@@ -45,3 +38,13 @@ require __DIR__.'/auth.php';
 Route::get('/cart', function () {
     return view('cart');
 });
+
+Route::post('save-products', [ProductsController::class, 'save']);
+Route::get('readData', [ProductsController::class, 'readData']);
+Route::get('viewTra', [ProductsController::class, 'viewTra']);
+
+Route::get('orderData', [ProductsController::class, 'orderData']);
+Route::get('/', [ProductsController::class, 'read']);
+Route::get('edit/{id}', [ProductsController::class, 'edit']);
+Route::put('update', [ProductsController::class, 'update']);
+Route::delete('delete', [ProductsController::class, 'delete']);

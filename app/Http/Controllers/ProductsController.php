@@ -8,6 +8,7 @@ use App\Models\Order;   // Add this line
 use App\Models\Photos;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class ProductsController extends Controller
@@ -85,6 +86,16 @@ class ProductsController extends Controller
         ]);
 
         return back()->with('message', 'Status Updated successfully!');
+    }
+
+    public function viewTra()
+    {
+
+        $user = Auth::user();
+
+        $orders = Order::where('user_id', $user->id)->get();
+
+        return view('viewTra', compact('orders'));
     }
 
     public function delete(Request $request)
