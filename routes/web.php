@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/session', 'App\Http\Controllers\stripeController@session')->name('session');
     Route::get('/success', 'App\Http\Controllers\stripeController@success')->name('success');
 
+    Route::post('/addToCart', 'App\Http\Controllers\stripeController@addToCart')->name('addToCart');
+    Route::post('/orderNow', 'App\Http\Controllers\stripeController@orderNow')->name('orderNow');
+
 });
 
 require __DIR__.'/auth.php';

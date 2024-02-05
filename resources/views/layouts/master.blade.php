@@ -7,6 +7,7 @@
     <title>@yield('title', 'Default Title')</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -69,25 +70,59 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
-        function addToCart(productId) {
-            // Implement your add to cart logic here (without database interaction)
-            alert("Item added to cart! Product ID: " + productId);
-        }
-
-        function orderClick() {
-            var userEmail = ''; // Set your user email here
-            if (userEmail && userEmail !== '') {
-                alert('Please log in to place an order art.');
-            } else {
-                alert('Please log in to place an order art.');
-            }
-        }
-
-        $(document).ready(function() {
-            $("#artFilter").on("keyup", function() {
-
+        function addToCart() {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('addToCart') }}',
+                data: $('#addToCartForm').serialize(),
+                success: function(data) {
+                    alert('Item added to cart successfully!');
+                    updateCartTable(data);
+                },
+                error: function(error) {
+                    console.error('Error adding item to cart', error);
+                },
             });
-        });
+        }
+
+
+        function updateCartTable(cartData) {
+            var cartTableBody = $('#cart tbody');
+            cartTableBody.empty();
+
+            
+            cartData.forEach(function(item) {
+                var newRow = '<tr>' +
+                    '<td data-th="Product">' +
+                    '<div class="row">' +
+                    '<div class="col-sm-9">' +
+                    '<h4 class="nomargin">' + item.productname + '</h4>' +
+                    '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td data-th="Price">$' + item.total + '</td>' +
+                    '<td data-th="Quantity">' +
+                    '<input type="number" value="' + item.quantity +
+                    '" class="form-control quantity cart_update" min="1" />' +
+                    '</td>' +
+                    '<td data-th="Subtotal" class="text-center">$' + (item.total * item.quantity) + '</td>' +
+                    '<td class="actions" data-th="">' +
+                    '<button class="btn btn-danger btn-sm cart_remove" onclick="deleteFromCart()">' +
+                    '<i class="fa fa-trash-o"></i> Delete' +
+                    '</button>' +
+                    '</td>' +
+                    '</tr>';
+
+                cartTableBody.append(newRow);
+            });
+
+            // Update the total in the table
+            var total = cartData.reduce(function(sum, item) {
+                return sum + item.total * item.quantity;
+            }, 0);
+
+            $('#cartTotal').text('Total $' + total);
+        }
     </script>
 
 </body>
